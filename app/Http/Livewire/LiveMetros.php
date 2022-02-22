@@ -215,5 +215,6 @@ class LiveMetros extends Component
     {
         $this->selected_id = null;
         // cambio despues de GIT
+        //otro
     }
 }
