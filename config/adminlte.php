@@ -264,32 +264,32 @@ return [
                 [
                     'text' => 'Reservas | Semana',
                     'url'  => '#',
-                    'icon'    => 'fas fa-table',
+                    'icon'    => 'ml-3 fas fa-table',
                 ],
                 [
                     'text'    => 'Reservas | Dia',
                     'url'     => '#',
-                    'icon'    => 'fas fa-table',
+                    'icon'    => 'ml-3 fas fa-table',
                 ],
                 [
                     'text' => 'Reservas | Calendario',
                     'url'  => '#',
-                    'icon'    => 'fas fa-table',
+                    'icon'    => 'ml-3 fas fa-table',
                 ],
                 [
                     'text' => 'Habit | Precio',
                     'url'  => '#',
-                    'icon'    => 'fas fa-bed',
+                    'icon'    => 'ml-3 fas fa-bed',
                 ],
                 [
                     'text' => 'Habit | Estado',
                     'url'  => '#',
-                    'icon'    => 'fas fa-bed',
+                    'icon'    => 'ml-3 fas fa-bed',
                 ],
                 [
                     'text' => 'Habit | Clientes',
                     'url'  => '#',
-                    'icon'    => 'fas fa-bed',
+                    'icon'    => 'ml-3 fas fa-bed',
                 ],
 
             ],
@@ -303,17 +303,17 @@ return [
                 [
                     'text' => 'Trabajador | Listado',
                     'url'  => '/rhumanos/listado',
-                    'icon'    => 'fas fa-table',
+                    'icon'    => 'ml-3 fas fa-table',
                 ],
                 [
                     'text'    => ' Trabajador | Ficha',
                     'url'     => '/rhumanos/ficha',
-                    'icon'    => 'fas fa-id-card',
+                    'icon'    => 'ml-3 fas fa-id-card',
                 ],
                 [
                     'text' => 'Cumpleanos',
                     'url'  => '/rhumanos/cumpleanos',
-                    'icon'    => 'fas fa-birthday-cake ',
+                    'icon'    => 'ml-3 fas fa-birthday-cake ',
                 ],
 
             ],
@@ -327,47 +327,47 @@ return [
                 [
                     'text' => 'Sistema',
                     'url'  => '#',
-                    'icon'    => 'fas fa-cog fa-fw ',
+                    'icon'    => 'ml-3 fas fa-cog fa-fw ',
                     'class'=>'mt-2 ISIDRO',
                     'submenu' => [
                         [
                             'text' => 'Entidad',
                             'url'  => '/energia/entidad',
-                            'icon'    => 'fas fa-university fa-fw ',
+                            'icon' => 'ml-5 fas fa-university fa-fw ',
                         ],
                         [
                             'text' => 'Metrocontadores',
                             'url'  => '/energia/metrocontadores',
-                            'icon' => 'fa fa-cogs fa-fw ',
+                            'icon' => 'ml-5 fa fa-cogs fa-fw ',
 
                         ],
                         [
                             'text' => 'Lecturas',
                             'url'  => '/energia/lecturas',
-                            'icon' => 'fa fa-table fa-fw ',
+                            'icon' => 'ml-5 fa fa-table fa-fw ',
 
                         ],
                         [
                             'text' => 'Planes',
                             'url'  => '/energia/planes',
-                            'icon'    => 'fas fa-table fa-fw ',
+                            'icon' => 'ml-5 fas fa-table fa-fw ',
                         ],
                     ],
                 ],
                 [
                     'text'    => ' EE | Consumos',
-                    'url'     => '#',
-                    'icon'    => 'fas fa-bolt fa-fw ',
+                    'url'     => '/energia/consumos',
+                    'icon'    => 'ml-3 fas fa-bolt fa-fw ',
                 ],
                 [
                     'text' => 'Agua | Planes',
                     'url'  => '#',
-                    'icon'    => 'fas fa-tint fa-fw ',
+                    'icon' => 'ml-3 fas fa-tint fa-fw ',
                 ],
                 [
                     'text' => 'Agua | Consumos',
                     'url'  => '#',
-                    'icon'    => 'fas fa-tint fa-fw ',
+                    'icon' => 'ml-3 fas fa-tint fa-fw ',
                 ],
 
             ],

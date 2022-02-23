@@ -16,4 +16,9 @@ class EnergiaController extends Controller
     {
         return view('energia.planes');
     }
+
+    public function consumos()
+    {
+        return view('energia.consumos');
+    }
 }

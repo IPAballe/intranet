@@ -214,5 +214,6 @@ class LiveMetros extends Component
     public function createModal()
     {
         $this->selected_id = null;
+        // cambio despues de GIT
     }
 }
