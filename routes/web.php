@@ -31,12 +31,12 @@ Route::get('/rhumanos/cumpleanos', function () {   return view('cumpleanos'); })
 
 Route::group(['middleware' =>'auth:sanctum'], function()
 {
-    Route::get('/energia/lecturas', [EnergiaController::class, 'lecturas'])->name(name:'energia.lecturas');
-    Route::get('/energia/planes',   [EnergiaController::class, 'planes'])->name(name:'energia.planes');
-
-    Route::get('/energia/metrocontadores', [MetroController::class, 'listado'])->name(name:'energia.metrocontadores');
-
+    Route::get('/energia/lecturas',        [EnergiaController::class, 'lecturas'])->name(name:'energia.lecturas');
+    Route::get('/energia/planes',          [EnergiaController::class, 'planes'])->name(name:'energia.planes');
+    Route::get('/energia/metrocontadores', [MetroController::class,   'listado'])->name(name:'energia.metrocontadores');
 });
+
+Route::get('/energia/consumos', [EnergiaController::class, 'consumos'])->name(name:'energia.consumos');
 
 Auth::routes();
 
