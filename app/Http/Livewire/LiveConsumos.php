@@ -20,7 +20,7 @@ class LiveConsumos extends Component
         ]);
     }
 
-    public function ISIDRO()
+    public function PEREZ()
     {
 
     }
