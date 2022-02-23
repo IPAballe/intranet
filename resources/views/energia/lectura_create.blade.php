@@ -3,7 +3,7 @@
                 <form>
                     <div class="container">
                         <div class="row">
-                            <label for="exampleFormControlInput1">Tipo</label>
+                            <label>Tipo</label>
                             <div class="form-group col-sm">
                                 <select wire:model="tipoSeleccionado">
                                     @foreach ($tipos as $value)
@@ -11,13 +11,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <label for="exampleFormControlInput1">Metro</label>
+                            <label>Metro</label>
                             <div class="form-group col-sm">
                                 <select wire:model="metro_id">
                                     @foreach ( $metros as $value)
                                         <option value="{{ $value->id}}">{{ $value->metro_desc }}</option>
                                     @endforeach
-
                                 </select>
                             </div>
                         </div>
