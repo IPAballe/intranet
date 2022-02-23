@@ -19,4 +19,9 @@ class LiveConsumos extends Component
             'metros' => $metros,
         ]);
     }
+
+    public function ISIDRO()
+    {
+
+    }
 }
