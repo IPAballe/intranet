@@ -68,21 +68,9 @@
                             </td>
 
                             <td class="px-3 py-1 whitespace-nowrap ">
-                                <div class="text-sm text-gray-900 float-right">{{ $value->lectura}}
-                                <span class="
-                                    @switch ($value->metro->tipo_id)
-                                        @case(1)
-                                            fas fa-bolt fa-fw
-                                        @break
-                                        @case(2)
-                                           fas fa-water fa-fw
-                                        @break
-                                        @case(3)
-                                           fas fa-fire fa-fw
-                                        @break
-                                    @endswitch
-                                    "
-                                </span>
+                                <div class="text-sm text-gray-900 float-right">
+                                     {{ $value->lectura}}
+                                     @include('comun.logo_tipo_metro',['tipo_id' => $value->metro->tipo_id])
                                 </div>
                             </td>
 

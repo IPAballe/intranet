@@ -50,7 +50,7 @@
                                 </td>
                                 <td class="px-3 py-2 whitespace-nowrap">
                                     <div class="whitespace-nowrap ">
-                                        @include('comun.logo_tipo_metro')
+                                        @include('comun.logo_tipo_metro',['tipo_id'=>$value->tipo_id])
                                         {{ $value->metro_desc }}
                                     </div>
                                 </td>
@@ -68,7 +68,6 @@
                                             class="btn btn-info btn-sm">Activar
                                         </button>
                                     @endif
-
                                 </td>
                             </tr>
                         @endforeach
@@ -89,3 +88,4 @@
         @include('energia.metro_create')
     @endif
     @include('comun.modal_footer')
+</div>

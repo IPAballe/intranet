@@ -1,5 +1,5 @@
 <i class="
-    @switch ($value->tipo_id)
+    @switch ($tipo_id)
         @case(1)
             fas fa-bolt fa-fw
         @break
