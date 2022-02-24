@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 class EnergiaController extends Controller
 {
     //
+
+    public function entidades()
+    {
+        return view('energia.entidades');
+    }
+
     public function lecturas()
     {
         return view('energia.lecturalistado');

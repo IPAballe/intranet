@@ -332,7 +332,7 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Entidad',
-                            'url'  => '/energia/entidad',
+                            'url'  => '/energia/entidades',
                             'icon' => 'ml-5 fas fa-university fa-fw ',
                         ],
                         [
