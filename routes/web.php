@@ -31,6 +31,7 @@ Route::get('/rhumanos/cumpleanos', function () {   return view('cumpleanos'); })
 
 Route::group(['middleware' =>'auth:sanctum'], function()
 {
+    Route::get('/energia/entidades',       [EnergiaController::class, 'entidades'])->name(name:'energia.entidades');
     Route::get('/energia/lecturas',        [EnergiaController::class, 'lecturas'])->name(name:'energia.lecturas');
     Route::get('/energia/planes',          [EnergiaController::class, 'planes'])->name(name:'energia.planes');
     Route::get('/energia/metrocontadores', [MetroController::class,   'listado'])->name(name:'energia.metrocontadores');

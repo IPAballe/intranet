@@ -134,7 +134,6 @@ class LiveMetros extends Component
         $this->cto_gto2    = $record->cto_gto2;
         $this->cto_gto3    = $record->cto_gto3;
         $this->entidad_id  = $record->entidad_id;
-        $this->metro_id    = $record->metro_id;
     }
 
     public function update()
@@ -174,7 +173,7 @@ class LiveMetros extends Component
                 'entidad_id'  => $this->entidad_id,
                 'metro_desc'  => $this->metro_desc,
                 'totaliza'    => $this->totaliza,
-                'activo'      => $this->activo,
+                'activo'      => $this->activo ? 1 : 0,
                 'fc'          => $this->fc,
                 'cto_gto1'    => $this->cto_gto1,
                 'cto_gto2'    => $this->cto_gto2,
