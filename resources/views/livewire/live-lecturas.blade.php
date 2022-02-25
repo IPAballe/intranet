@@ -7,7 +7,7 @@
 
             <div class="bg-white px-4 py-0 items-center justify-between border-t border-gray-200 sm:px-6">
                 <div class="flex text-gray-500">
-                    <select wire:model="perPage">
+                    <select wire:model="perPage"  class="form-control">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
