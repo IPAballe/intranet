@@ -20,7 +20,9 @@
                     <div class="row">
                         <div class="col-12">
                             <label>
-                                {{ "metro_id=$metro_id | ano_mes=$ano_mes"}}
+                                {{ "metro_id=$metro_id | ano_mes=$ano_mes ||
+
+                                "}}
                             </label>
                         </div>
                     </div>

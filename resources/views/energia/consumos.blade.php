@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Consumo')
+@section('title','Consumo Electrico')
 
 @section('content_header')
-    <h1> Consumo</h1>
+    <h1> Consumo Electrico</h1>
 @stop
 
 @section('css')

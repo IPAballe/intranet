@@ -13,7 +13,6 @@ class LiveLecturas extends Component
 {
     use WithPagination;
 
-    public $search = '';
     public $perPage = 10;
     public $campo = 'fecha';
     public $order = 'desc';
@@ -22,21 +21,9 @@ class LiveLecturas extends Component
     public $componentName = 'Lecturas', $selected_id;
 
     public $lectura, $fecha, $cambiometro = false;
-    public $metro_id, $tipoSeleccionado, $tipos_id;
+    public $metro_id, $tipoSeleccionado='', $tipos_id;
 
     public $updateMode = true;
-
-    protected $queryString = [
-        'search' => ['except'=>''],
-        'perPage' => ['except'=>10],
-        'campo' => ['except'=>null],
-        'order' => ['except'=>null],
-    ];
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
 
     public function mount()
     {
@@ -48,9 +35,7 @@ class LiveLecturas extends Component
 
     public function render()
     {
-        $lecturas = Lecturas::where('lectura','like',"%{$this->search}%")
-                            ->orwhere('metro_id','like',"%{$this->search}%")
-                            ->orderBy($this->campo, $this->order)
+        $lecturas = Lecturas::orderBy($this->campo, $this->order)
                             ->paginate($this->perPage);
 
         $tipos = Tipos::orderBy('tipos_desc', 'asc')
@@ -75,7 +60,6 @@ class LiveLecturas extends Component
                               ->orderBy('metro_desc', 'asc')
                               ->get();
         $this->metro_id = $this->metros->first()->id;
-
         $this->tipos_id = $value;
     }
 
@@ -210,7 +194,6 @@ class LiveLecturas extends Component
 
     public function clear()
     {
-        $this->search = '';
         $this->order = 'desc';
         $this->campo = 'fecha';
         $this->icono = '-arrow-circle-down';

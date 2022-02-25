@@ -1,43 +1,31 @@
-
-
 <div class="flex flex-col">
     <div class="-my-6 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-
-            <div class="bg-white px-4 py-0 items-center justify-between border-t border-gray-200 sm:px-6">
-                <div class="flex text-gray-500">
-                    <select wire:model="perPage"  class="form-control">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-
-                    <input
-                        type=           "text"
-                        class=          "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
-                        wire:model  =   "search"
-                        placeholder =   "Escriba termino a buscar..."
-                    >
-
-                    <button wire:click="clear">
-                        <span class="fa fa-eraser"></span>
-                    </button>
-
-                    <button wire:click.prevent="createModal()" class="btn btn-primary ml-4 " data-toggle="modal" data-target="#modal">
-                        Nueva
-                    </button>
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <div class="bg-white px-2 py-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                    <div class="flex text-gray-500">
+                        <select wire:model="perPage"  class="form-control">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="float-right">
+                        <button wire:click.prevent="createModal()" class="btn btn-primary mt-2 mb-2" data-toggle="modal"
+                            data-target="#modal">
+                            Nuevo
+                        </button>
+                    </div>
                 </div>
-            </div>
 
+            <table class="table-fixed table-light min-w-full divide-y divide-gray-200 mt-1">
 
-            <table class="table-fixed min-w-full divide-y divide-gray-200 mt-1">
-                <thead class="bg-cool-gray-50">
+            <thead class="thead-light">
                 <tr>
                    <th
-                        scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Metrocontador (Punto de Venta)
+                        scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Metrocontador
                         <button wire:click="sortable('metro_id')">
                             <span class="fa fa{{ $campo === 'metro_id' ? $icono : '-circle'}}"> </span>
                         </button>
@@ -92,7 +80,6 @@
                 {{ $lecturas->links()}}
             </div>
         </div>
-      </div>
     </div>
 
     @include('comun.modal_head')
@@ -102,3 +89,5 @@
         @include('energia.lectura_create')
     @endif
     @include('comun.modal_footer')
+
+</div>
