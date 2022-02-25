@@ -54,6 +54,7 @@ class LiveConsumos extends Component
         $this->intervalo = CarbonPeriod::create(Carbon::createFromFormat('Y-m-d',$ini),
                                                  Carbon::createFromFormat('Y-m-d',$fin));
 
+
         foreach ($this->intervalo as $key =>$date)
         {
             if (!$loop->first)
@@ -61,7 +62,7 @@ class LiveConsumos extends Component
 
             }
             {
-                $lecAnt =
+
             }
             $this->consumos =
 
