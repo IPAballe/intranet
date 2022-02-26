@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class EnergiaController extends Controller
 {
-    //
+    // Cambio para
 
     public function entidades()
     {
