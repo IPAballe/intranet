@@ -47,12 +47,12 @@
                             <tr class="hover:bg-gray-300 dark:hover:bg-gray-700">
                                 <td class="px-3 py-3 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{Consumos->fecha}}
+                                        {{$Consumos['2022-02-01']}}
                                     </div>
                                 </td>
                                 <td class="px-3 py-3 whitespace-nowrap">
                                     <div class="whitespace-nowrap ">
-                                        {{Consumos->valor}}
+
 
                                     </div>
                                 </td>

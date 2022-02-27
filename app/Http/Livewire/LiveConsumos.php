@@ -72,12 +72,12 @@ class LiveConsumos extends Component
 
         foreach ($period as $date)
         {
-            $Consumos = collect([
-                         'fecha' => $date->format('Y-m-d'),
-                         'valor' => $this->ConsumoDia($date->format('Y-m-d'), $metro_id)
-                        ]);
+            $this->Consumos = Arr::add($this->Consumos,
+                          $date->format('Y-m-d'),
+                          $this->ConsumoDia($date->format('Y-m-d'), $metro_id)
+                        );
         }
-        dd($Consumos);
+
 
     }
 
