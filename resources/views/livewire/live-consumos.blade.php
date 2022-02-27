@@ -10,21 +10,12 @@
                     </div>
                     <div class="flex col-9">
                         <label class="mt-3">Metrocontador</label>
-                            <select wire:model="metro_id" class="form-control mt-2 ml-3">
-                                <option value="0">Total</option>
-                                @foreach ( $metros as $value)
-                                    <option value="{{ $value->id}}">{{ $value->metro_desc }}</option>
-                                @endforeach
-                            </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label>
-                                {{ "metro_id=$metro_id | ano_mes=$ano_mes ||
-
-                                "}}
-                            </label>
-                        </div>
+                        <select wire:model="metro_id" class="form-control mt-2 ml-3">
+                            <option value="0">Total</option>
+                            @foreach ( $metros as $value)
+                                <option value="{{ $value->id}}">{{ $value->metro_desc }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -38,28 +29,46 @@
                                 Consumo
                             </th>
                             <th class="px-6 py-2 text-right text-xs font-medium text-gray-500 uppercase">
+                                UM
+                            </th>
+                            <th class="px-6 py-2 text-right text-xs font-medium text-gray-500 uppercase">
                                 Plan
+                            </th>
+                            <th class="px-6 py-2 text-right text-xs font-medium text-gray-500 uppercase">
+                                %
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($Consumos as $value)
+
+                        @foreach ($Consumos as $key => $value)
                             <tr class="hover:bg-gray-300 dark:hover:bg-gray-700">
-                                <td class="px-3 py-3 whitespace-nowrap">
+                                <td class="px-6 py-2 text-center">
                                     <div class="text-sm text-gray-900">
-                                        {{$Consumos['2022-02-01']}}
+                                        {{$key}}
                                     </div>
                                 </td>
-                                <td class="px-3 py-3 whitespace-nowrap">
+                                <td class="px-6 py-2 text-right">
                                     <div class="whitespace-nowrap ">
-
+                                        {{number_format($value, 2)}}
 
                                     </div>
                                 </td>
 
-                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-2 text-right">
+                                    {{ $um}}
+                                </td>
 
+                                <td class="px-6 py-2 text-right">
+                                    @if (!is_null($planes))
+                                        {{number_format($planes->plan / $ddm, 2)}}
+                                    @endif
+                                </td>
 
+                                <td class="px-6 py-2 text-right">
+                                    @if (!is_null($planes))
+                                        {{number_format(($value /($planes->plan / $ddm))*100, 2)}}
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
