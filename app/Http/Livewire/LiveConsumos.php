@@ -8,68 +8,76 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Livewire\Component;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
+use Illuminate\Support\Arr;
 
 class LiveConsumos extends Component
 {
     public $tipo = 1;  // ENERGIA ELECTRICA
-    public $metro_id = 0;
-    public $ano_mes, $dias;
+    public $metros, $metro_id = 0;
+    public $ano_mes, $dias, $Consumos, $consumo;
 
-    protected $intervalo;
+    protected $intervalo, $temp;
 
     public function mount()
     {
-        $this->ano_mes = Carbon::now()->Format('Y-m');
+        $this->ano_mes  = Carbon::now()->Format('Y-m');
+        $this->metros   = Metros::where('tipo_id', $this->tipo)
+                          ->where('activo','1')
+                          ->orderBy('metro_desc', 'asc')
+                          ->get();
+        $this->metro_id = $this->metros->first()->id;
+
     }
 
     public function render()
     {
-        $metros = Metros::where('tipo_id', $this->tipo)
-                        ->where('activo','1')
-                        ->orderBy('metro_desc', 'asc')
-                        ->get();
-
-        $this->calculaConsumo("2022-02-01","2022-02-05");
-
+        $intervalo = CarbonPeriod::create(Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01'),
+                                          Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-28'));
+        $this->consumoPeriodo($intervalo, $this->metro_id);
         return view('livewire.live-consumos', [
-            'metros' => $metros,
-
+            'Consumos'=> $this->Consumos,
         ]);
     }
 
-    public function lecturaAnterior($metro_id, $fecha)
+    public function ConsumoDia($f, $metro_id)
     {
-        $record = Lecturas::where('metro_id',$metro_id)
-                          ->where('fecha','<', $fecha)
-                          ->orderBy('fecha', 'desc')
-                          ->get(1);
+        $fecha = Carbon::createFromFormat('Y-m-d', $f);
 
+        $recordActualoSgt = Lecturas::where('fecha', '>=', $fecha)
+                                    ->where('metro_id', $metro_id)
+                                    ->orderBy('fecha', 'asc')
+                                    ->first();
+        $recordAnterior = Lecturas::where('fecha', '<', $fecha)
+                                  ->where('metro_id', $metro_id)
+                                  ->orderBy('fecha', 'desc')
+                                  ->first();
 
-        return [$record->fecha,$record->lectura];
+        if (!is_null($recordActualoSgt))
+        if (!is_null($recordAnterior))
+        {
+            $fechaActualoSgt = Carbon::createFromFormat('Y-m-d', $recordActualoSgt->fecha);
+            $lectuActualoSgt = $recordActualoSgt->lectura;
+
+            $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordAnterior->fecha);
+            $lectuAnterior = $recordAnterior->lectura;
+
+            $this->consumo = ($lectuActualoSgt - $lectuAnterior) /
+                       ($fechaActualoSgt->diffInDays($fechaAnterior));
+        }
+        return $this->consumo;
     }
 
-    public function calculaConsumo($ini, $fin)
+    public function consumoPeriodo($period, $metro_id)
     {
 
-        $this->intervalo = CarbonPeriod::create(Carbon::createFromFormat('Y-m-d',$ini),
-                                                 Carbon::createFromFormat('Y-m-d',$fin));
-
-
-        foreach ($this->intervalo as $key =>$date)
+        foreach ($period as $date)
         {
-            if (!$loop->first)
-            {
-
-            }
-            {
-
-            }
-            $this->consumos =
-
+            $Consumos = collect([
+                         'fecha' => $date->format('Y-m-d'),
+                         'valor' => $this->ConsumoDia($date->format('Y-m-d'), $metro_id)
+                        ]);
         }
-
-
-
+        dd($Consumos);
 
     }
 

@@ -43,16 +43,16 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($metros as $value)
+                        @foreach ($Consumos as $value)
                             <tr class="hover:bg-gray-300 dark:hover:bg-gray-700">
                                 <td class="px-3 py-3 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-
+                                        {{Consumos->fecha}}
                                     </div>
                                 </td>
                                 <td class="px-3 py-3 whitespace-nowrap">
                                     <div class="whitespace-nowrap ">
-
+                                        {{Consumos->valor}}
 
                                     </div>
                                 </td>
