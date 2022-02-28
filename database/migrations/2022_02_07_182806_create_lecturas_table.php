@@ -16,7 +16,7 @@ class CreateLecturasTable extends Migration
         Schema::create('lecturas', function (Blueprint $table) {
             $table->id();
             $table->integer('lectura');
-            $table->date('fecha');
+            $table->datetime('fecha');
             $table->boolean('cambiometro');
 
             $table->unsignedBigInteger('metro_id');

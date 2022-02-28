@@ -25,9 +25,12 @@ class LiveConsumos extends Component
                           ->where('activo','1')
                           ->orderBy('metro_desc', 'asc')
                           ->get();
-
-        $this->metro_id = $this->metros->first()->id;
-        $this->um = $this->metros->first()->um;
+        $t = $this->metros->first();
+        if (!is_null($t))
+        {
+            $this->metro_id = $t->id;
+            $this->um = $this->metros->first()->tipo->um;
+        }
 
         $this->planes = Planes::where('metro_id', $this->metro_id)
                               ->where('ano', Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01')->format('Y'))
@@ -45,6 +48,7 @@ class LiveConsumos extends Component
                                                 Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth());
         $this->ddm = Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth()->format('d');
         $this->consumoPeriodo($this->intervalo, $this->metro_id);
+
         return view('livewire.live-consumos', [
                                                 'Consumos'=> $this->Consumos,
                                                 'Planes'  => $this->planes,
@@ -53,23 +57,31 @@ class LiveConsumos extends Component
 
     public function ConsumoDia($f, $metro_id)
     {
-        $fecha = Carbon::createFromFormat('Y-m-d', $f);
+
+        $fecha = $f;
+
 
         $recordActualoSgt = Lecturas::where('fecha', '>=', $fecha)
                                     ->where('metro_id', $metro_id)
                                     ->orderBy('fecha', 'asc')
                                     ->first();
+
         $recordAnterior = Lecturas::where('fecha', '<', $fecha)
                                   ->where('metro_id', $metro_id)
                                   ->orderBy('fecha', 'desc')
                                   ->first();
+
         $this->consumo= null;
         if (!is_null($recordActualoSgt))
         if (!is_null($recordAnterior))
         {
-            $fechaActualoSgt = Carbon::createFromFormat('Y-m-d', $recordActualoSgt->fecha);
+
+            $fechaActualoSgt = Carbon::createFromFormat('Y-m-d', $recordActualoSgt->fecha->format('Y-m-d'));
+
             $lectuActualoSgt = $recordActualoSgt->lectura;
-            $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordAnterior->fecha);
+
+            $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordAnterior->fecha->format('Y-m-d'));
+
             $lectuAnterior = $recordAnterior->lectura;
 
             $this->consumo = ($lectuActualoSgt - $lectuAnterior) /
@@ -83,6 +95,7 @@ class LiveConsumos extends Component
         $this->Consumos = null;
         foreach ($period as $d)
         {
+
             $this->Consumos[$d->format('Y-m-d')] = $this->ConsumoDia($d->format('Y-m-d'), $metro_id);
         }
     }

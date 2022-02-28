@@ -22,7 +22,8 @@ class LivePlanes extends Component
     public function mount()
     {
         $this->tipos_id = ((Tipos::orderBy('tipos_desc', 'asc'))->first())->id;
-        $this->metro_id = (Metros::orderBy('metro_desc', 'asc')->where('activo', '1')->where('tipo_id',$this->tipos_id)->first())->id;
+        $t = (Metros::orderBy('metro_desc', 'asc')->where('activo', '1')->where('tipo_id',$this->tipos_id))->first();
+        if (!is_null($t))  $this->metro_id = $t->id;
     }
 
     public function render()

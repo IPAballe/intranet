@@ -44,7 +44,7 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-
+                    @if (!is_null($lecturas))
                     @foreach ($lecturas as $value )
                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td class="px-3 py-1 whitespace-nowrap">
@@ -74,6 +74,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">

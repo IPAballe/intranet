@@ -21,16 +21,17 @@ class LiveLecturas extends Component
     public $componentName = 'Lecturas', $selected_id;
 
     public $lectura, $fecha, $cambiometro = false;
-    public $metro_id, $tipoSeleccionado='', $tipos_id;
+    public $metro_id=0, $tipoSeleccionado='', $tipos_id;
 
     public $updateMode = true;
 
     public function mount()
     {
         $this->icono = $this->iconDirection($this->order);
-        $this->fecha = Carbon::now();
+        $this->fecha = Carbon::now()->format('Y-m-d');
         $this->tipos_id = (Tipos::orderBy('tipos_desc', 'asc'))->first()->id;
-        $this->metro_id = (Metros::orderBy('metro_desc', 'asc')->where('activo', '1')->where('tipo_id',$this->tipos_id)->first())->id;
+        $t = (Metros::orderBy('metro_desc', 'asc')->where('activo', '1')->where('tipo_id',$this->tipos_id))->first();
+        if (!is_null($t))  $this->metro_id = $t->id;
     }
 
     public function render()
@@ -77,6 +78,7 @@ class LiveLecturas extends Component
         $this->selected_id  = $id;
         $this->lectura      = $record->lectura;
         $this->cambiometro  = $record->cambiometro;
+
         $this->fecha        = Carbon::parse(substr($record->fecha, 0, 11))->format('Y-m-d');
         $this->metro_id     = $record->metro_id;
 
