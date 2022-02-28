@@ -18,7 +18,7 @@
                         </select>
                     </div>
                 </div>
-
+                <div class="card-body">
                 <table class="table-fixed min-w-full divide-y divide-gray-200 mt-1">
                     <thead class="bg-cool-gray-50">
                         <tr>
@@ -75,6 +75,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

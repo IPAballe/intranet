@@ -57,35 +57,31 @@ class LiveConsumos extends Component
 
     public function ConsumoDia($f, $metro_id)
     {
-
-        $fecha = $f;
-
-
-        $recordActualoSgt = Lecturas::where('fecha', '>=', $fecha)
+        $recordSgt = Lecturas::where('fecha', '>', $f)
                                     ->where('metro_id', $metro_id)
                                     ->orderBy('fecha', 'asc')
                                     ->first();
 
-        $recordAnterior = Lecturas::where('fecha', '<', $fecha)
+        $recordAnterior = Lecturas::where('fecha', '<=', $f)
                                   ->where('metro_id', $metro_id)
                                   ->orderBy('fecha', 'desc')
                                   ->first();
 
         $this->consumo= null;
-        if (!is_null($recordActualoSgt))
+        if (!is_null($recordSgt))
         if (!is_null($recordAnterior))
         {
 
-            $fechaActualoSgt = Carbon::createFromFormat('Y-m-d', $recordActualoSgt->fecha->format('Y-m-d'));
+            $fechaSgt = Carbon::createFromFormat('Y-m-d', $recordSgt->fecha->format('Y-m-d'));
 
-            $lectuActualoSgt = $recordActualoSgt->lectura;
+            $lectuSgt = $recordSgt->lectura;
 
             $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordAnterior->fecha->format('Y-m-d'));
 
             $lectuAnterior = $recordAnterior->lectura;
 
-            $this->consumo = ($lectuActualoSgt - $lectuAnterior) /
-                       ($fechaActualoSgt->diffInDays($fechaAnterior));
+            $this->consumo = ($lectuSgt - $lectuAnterior) /
+                       ($fechaSgt->diffInDays($fechaAnterior));
         }
         return $this->consumo;
     }
