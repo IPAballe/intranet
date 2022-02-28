@@ -19,7 +19,7 @@ class EntidadesSeeder extends Seeder
             'entidad_desc' => 'Empresa de Prueba TURISMO',
             'telefono'     => '+5324848484',
             'correo'       => 'correo@de.la.empresa.com',
-            'munic_id'     => 1,
+            'munic_id'     => 122,
             'activo'       => 1,
         ]);
     }
