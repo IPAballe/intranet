@@ -42,35 +42,36 @@
                     <tbody class="bg-white divide-y divide-gray-200">
 
                         @foreach ($Consumos as $key => $value)
+                        @if (!is_null($value))
                             <tr class="hover:bg-gray-300 dark:hover:bg-gray-700">
-                                <td class="px-6 py-2 text-center">
+                                <td class="px-6 py-0 text-center text-lg">
                                     <div class="text-sm text-gray-900">
-                                        {{$key}}
+                                        {{ \Carbon\Carbon::createfromFormat('Y-m-d', $key)->format('d-m-Y')}}
                                     </div>
                                 </td>
-                                <td class="px-6 py-2 text-right">
+                                <td class="px-6 py-0 text-right text-base font-bold">
                                     <div class="whitespace-nowrap ">
                                         {{number_format($value, 2)}}
-
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-2 text-right">
+                                <td class="px-6 py-0 text-right text-xs font-medium">
                                     {{ $um}}
                                 </td>
 
-                                <td class="px-6 py-2 text-right">
+                                <td class="px-6 py-0 text-right text-xs font-medium">
                                     @if (!is_null($planes))
                                         {{number_format($planes->plan / $ddm, 2)}}
                                     @endif
                                 </td>
 
-                                <td class="px-6 py-2 text-right">
+                                <td class="px-6 py-0 text-right text-xs font-medium">
                                     @if (!is_null($planes))
                                         {{number_format(($value /($planes->plan / $ddm))*100, 2)}}
                                     @endif
                                 </td>
                             </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
