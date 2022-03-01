@@ -17,8 +17,8 @@ class CreateMetrosTable extends Migration
             $table->id();
             $table->string('metro_desc', 50);
             $table->float('fc')->default('1');
-            $table->boolean('totaliza')->default('true');
-            $table->boolean('activo')->default('true');
+            $table->boolean('totaliza');
+            $table->boolean('activo');
             $table->string('cto_gto1',10)->nullable('true');
             $table->string('cto_gto2',10)->nullable('true');
             $table->string('cto_gto3',10)->nullable('true');

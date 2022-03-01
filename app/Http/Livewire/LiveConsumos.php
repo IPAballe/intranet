@@ -30,6 +30,7 @@ class LiveConsumos extends Component
         {
             $this->metro_id = $t->id;
             $this->um = $this->metros->first()->tipo->um;
+
         }
 
         $this->planes = Planes::where('metro_id', $this->metro_id)

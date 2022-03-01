@@ -19,7 +19,7 @@ class CreateEntidadesTable extends Migration
             $table->string('entidad_desc', 30);
             $table->string('correo', 50)->nullable('true');
             $table->string('telefono', 30)->nullable('true');
-            $table->boolean('activo')->default('true');
+            $table->boolean('activo');
 
             $table->unsignedBigInteger('munic_id');
             $table->foreign('munic_id')
