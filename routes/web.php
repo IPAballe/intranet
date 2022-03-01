@@ -37,7 +37,8 @@ Route::group(['middleware' =>'auth:sanctum'], function()
     Route::get('/energia/metrocontadores', [MetroController::class,   'listado'])->name(name:'energia.metrocontadores');
 });
 
-Route::get('/energia/consumos', [EnergiaController::class, 'consumos'])->name(name:'energia.consumos');
+Route::get('/energia/consumos_dia', [EnergiaController::class, 'consumos_dia'])->name(name:'energia.consumos_dia');
+Route::get('/energia/consumos_mes', [EnergiaController::class, 'consumos_mes'])->name(name:'energia.consumos_mes');
 
 Auth::routes();
 

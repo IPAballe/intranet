@@ -62,27 +62,20 @@ class LiveConsumos extends Component
                                     ->where('metro_id', $metro_id)
                                     ->orderBy('fecha', 'asc')
                                     ->first();
-
         $recordAnterior = Lecturas::where('fecha', '<=', $f)
                                   ->where('metro_id', $metro_id)
                                   ->orderBy('fecha', 'desc')
                                   ->first();
-
         $this->consumo= null;
         if (!is_null($recordSgt))
         if (!is_null($recordAnterior))
         {
-
             $fechaSgt = Carbon::createFromFormat('Y-m-d', $recordSgt->fecha->format('Y-m-d'));
-
             $lectuSgt = $recordSgt->lectura;
-
             $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordAnterior->fecha->format('Y-m-d'));
-
             $lectuAnterior = $recordAnterior->lectura;
-
             $this->consumo = ($lectuSgt - $lectuAnterior) /
-                       ($fechaSgt->diffInDays($fechaAnterior));
+                             ($fechaSgt->diffInDays($fechaAnterior));
         }
         return $this->consumo;
     }

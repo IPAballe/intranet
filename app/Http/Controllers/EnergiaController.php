@@ -23,8 +23,13 @@ class EnergiaController extends Controller
         return view('energia.planes');
     }
 
-    public function consumos()
+    public function consumos_dia()
     {
-        return view('energia.consumos');
+        return view('energia.consumos_dia');
+    }
+
+    public function consumos_mes()
+    {
+        return view('energia.consumos_mes');
     }
 }
