@@ -1,23 +1,54 @@
+
 <div class="flex flex-col">
     <div class="-my-6 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <div class="bg-white px-2 py-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                    <div class="flex text-gray-500">
-                        <select wire:model="perPage"  class="form-control">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
+                    <div class="container mt-2">
+                        <div class="row">
+                            <div class="col-xs">
+                                <select wire:model="perPage"  class="form-control">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="365">365</option>
+                                </select>
+                            </div>
+
+                            <div class="col-xs ml-2">
+                                <select wire:model="tipoSeleccionado" class="form-control">
+                                    @foreach ($tipos as $value)
+                                        <option value="{{ $value->id}}">{{ $value->tipos_desc }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-xs ml-2">
+                                <select wire:model="metro_id" class="form-control">
+                                    @foreach ( $metros as $value)
+                                        <option value="{{ $value->id}}">{{ $value->metro_desc }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-xs ml-2">
+                                <input type="text" class="form-control"
+                                       wire:model="search"
+                                       placeholder="Lectura a buscar"
+
+                                >
+                            </div>
+                            <div class="col-xs">
+                                <button wire:click.prevent="createModal()" class="btn btn-primary mb-2 ml-2" data-toggle="modal"
+                                    data-target="#modal">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="float-right">
-                        <button wire:click.prevent="createModal()" class="btn btn-primary mt-2 mb-2" data-toggle="modal"
-                            data-target="#modal">
-                            Nuevo
-                        </button>
-                    </div>
+
+
                 </div>
 
             <table class="table-fixed table-light min-w-full divide-y divide-gray-200 mt-1">
@@ -25,22 +56,18 @@
             <thead class="thead-light">
                 <tr>
                    <th
-                        scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Metrocontador
-                        <button wire:click="sortable('metro_id')">
-                            <span class="fa fa{{ $campo === 'metro_id' ? $icono : '-circle'}}"> </span>
-                        </button>
+                        scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Metrocontador
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha
-                        <button wire:click="sortable('fecha')">
-                            <span class="fa fa{{ $campo === 'fecha' ? $icono : '-circle'}}""> </span>
-                        </button>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Fecha
                     </th>
-                    <th scope="col" class="float-right px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lectura
-                        <button wire:click="sortable('lectura')">
-                            <span class="fa fa{{ $campo === 'lectura' ? $icono : '-circle'}}""> </span>
-                        </button>
+                    <th scope="col" class="float-right px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Lectura
                     </th>
-                    <th scope="col" class="px-10 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                    <th scope="col" class="px-10 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Acciones
+                    </th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">

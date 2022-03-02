@@ -11,7 +11,7 @@ class Metros extends Model
     use HasFactory;
 
     public $fillable = ['metro_desc','fc','totaliza','activo',
-                        'cto_gto1','cto_gto1','cto_gto3','cto_gto3',
+                        'cto_gto1','cto_gto2','cto_gto3',
                         'entidad_id','tipo_id'
                        ];
 

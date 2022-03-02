@@ -23,10 +23,6 @@
             </div>
         </div>
 
-        <label>{{ "Ano/Mes=$ano_mes | Plan=$plan | id_tipo=$tipos_id | metro_id=$metro_id"}}</label>
-
-
-
         <div class="container">
             <div class="row">
                 <div class="div form-group col-6">

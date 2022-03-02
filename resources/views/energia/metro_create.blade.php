@@ -61,11 +61,6 @@
                     @error('cto_gto3') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
             </div>
-            <div class="row">
-                <label class="text-sm">
-                    {{ "tipo_id=$tipo_id | entidad_id=$entidad_id | metro_desc=$metro_desc | totaliza=$totaliza | Activo=$activo | fc=$fc | cto_gto1=$cto_gto1 | cto_gto2=$cto_gto2 | cto_gto3=$cto_gto3"}}
-                </label>
-            </div>
         </div>
     </form>
 </div>

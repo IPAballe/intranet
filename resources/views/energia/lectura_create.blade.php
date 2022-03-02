@@ -21,8 +21,6 @@
             </div>
         </div>
 
-        <label> {{ 'Metro_id='.$metro_id . ' tipos_id='.$tipos_id.'|ts:'. $tipoSeleccionado}}</label>
-
         <div class="container">
             <div class="row">
                 <div class="div form-group col-6">

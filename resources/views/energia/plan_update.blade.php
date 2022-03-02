@@ -2,10 +2,9 @@
 
 <div class="modal-body">
     <form>
-        <label>{{ "Ano/Mes=$ano_mes | Plan=$plan | id_tipo=$tipos_id | metro_id=$metro_id | selected_id=$selected_id"}}</label>
-
         <div class="container">
                 <div class="form-group col-6">
+                    <label>Plan:</label>
                     <input type="text"
                            class="form-control"
                            placeholder="Plan"

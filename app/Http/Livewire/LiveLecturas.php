@@ -13,10 +13,9 @@ class LiveLecturas extends Component
 {
     use WithPagination;
 
+
     public $perPage = 10;
-    public $campo = 'fecha';
-    public $order = 'desc';
-    public $icono = '-arrow-circle-down';
+    public $search = '';
 
     public $componentName = 'Lecturas', $selected_id;
 
@@ -27,25 +26,33 @@ class LiveLecturas extends Component
 
     public function mount()
     {
-        $this->icono = $this->iconDirection($this->order);
         $this->fecha = Carbon::now()->format('Y-m-d');
-        $this->tipos_id = (Tipos::orderBy('tipos_desc', 'asc'))->first()->id;
-        $t = (Metros::orderBy('metro_desc', 'asc')->where('activo', '1')->where('tipo_id',$this->tipos_id))->first();
+        $this->tipoSeleccionado = (Tipos::orderBy('id', 'asc'))->first()->id;
+        $t = (Metros::orderBy('metro_desc', 'asc')
+                    ->where('activo', '1')
+                    ->where('tipo_id',$this->tipoSeleccionado))->first();
         if (!is_null($t))  $this->metro_id = $t->id;
+
     }
 
     public function render()
     {
-        $lecturas = Lecturas::orderBy($this->campo, $this->order)
-                            ->paginate($this->perPage);
-
-        $tipos = Tipos::orderBy('tipos_desc', 'asc')
+        $tipos = Tipos::orderBy('id', 'asc')
                       ->get();
 
-        $metros = Metros::where('tipo_id', $tipos->first()->id)
+        $metros = Metros::where('tipo_id', $this->tipoSeleccionado)
                         ->where('activo','1')
                         ->orderBy('metro_desc', 'asc')
                         ->get();
+        if ($this->page > 1)
+            $lecturas = Lecturas::where('metro_id', $this->metro_id)
+                                ->where('lectura', 'like', "%$this->search%")
+                                ->paginate($this->perPage);
+        else
+            $lecturas = Lecturas::where('metro_id', $this->metro_id)
+                                ->where('lectura', 'like', "%$this->search%")
+                                ->orderBy('fecha','desc')
+                                ->paginate($this->perPage);
 
         return view('livewire.live-lecturas', [
                     'lecturas'=>$lecturas,
@@ -60,6 +67,7 @@ class LiveLecturas extends Component
                               ->where('activo','1')
                               ->orderBy('metro_desc', 'asc')
                               ->get();
+
         $this->metro_id = $this->metros->first()->id;
         $this->tipos_id = $value;
     }
@@ -103,7 +111,6 @@ class LiveLecturas extends Component
                       ->where('fecha','<',$this->fecha)
                       ->orderBy('fecha', 'desc')
                       ->first();
-
         if (is_null($record)) return 0;
 
         return $record->lectura;
@@ -125,7 +132,6 @@ class LiveLecturas extends Component
                      'lectura' => $this->lectura,
                      ]);
         }
-
         $this->resetInputFields();
         $this->updateMode = false;
     }
@@ -160,45 +166,8 @@ class LiveLecturas extends Component
         }
     }
 
-    public function sortable($campo)
-    {
-        $this->resetPage();
-
-        if ($campo !== $this->campo)
-        {
-            $this->order = null;
-        }
-        switch ($this->order)
-        {
-            case null:
-                $this->order = 'asc';
-            break;
-            case 'asc':
-                $this->order = 'desc';
-            break;
-            case 'desc':
-                $this->order = null;
-            break;
-        }
-        $this->icono = $this->iconDirection($this->order);
-        $this->campo = $campo;
-    }
-
-    public function iconDirection($direccion) : string
-    {
-        if (!$direccion)
-        {
-            return '-circle';
-        }
-
-        return $direccion === 'asc' ? '-arrow-circle-up' : '-arrow-circle-down';
-    }
-
     public function clear()
     {
-        $this->order = 'desc';
-        $this->campo = 'fecha';
-        $this->icono = '-arrow-circle-down';
         $this->page = 1;
         $this->perPage = 10;
         $this->resetPage();
