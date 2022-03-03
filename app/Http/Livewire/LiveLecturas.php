@@ -67,8 +67,9 @@ class LiveLecturas extends Component
                               ->where('activo','1')
                               ->orderBy('metro_desc', 'asc')
                               ->get();
-
-        $this->metro_id = $this->metros->first()->id;
+        if (!is_null($this->metros->first()))
+            $this->metro_id = $this->metros->first()->id;
+        else $this->metro_id =0;
         $this->tipos_id = $value;
     }
 

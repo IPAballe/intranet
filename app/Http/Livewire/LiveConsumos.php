@@ -59,9 +59,9 @@ class LiveConsumos extends Component
     public function ConsumoDia($f, $metro_id)
     {
         $recordSgt = Lecturas::where('fecha', '>', $f)
-                                    ->where('metro_id', $metro_id)
-                                    ->orderBy('fecha', 'asc')
-                                    ->first();
+                              ->where('metro_id', $metro_id)
+                              ->orderBy('fecha', 'asc')
+                              ->first();
         $recordAnterior = Lecturas::where('fecha', '<=', $f)
                                   ->where('metro_id', $metro_id)
                                   ->orderBy('fecha', 'desc')
@@ -84,12 +84,7 @@ class LiveConsumos extends Component
     {
         $this->Consumos = null;
         foreach ($period as $d)
-        {
-
-            $this->Consumos[$d->format('Y-m-d')] = $this->ConsumoDia($d->format('Y-m-d'), $metro_id);
-        }
+            $this->Consumos[$d->format('Y-m-d')] =
+                   $this->ConsumoDia($d->format('Y-m-d'), $metro_id);
     }
-
-
 }
-
