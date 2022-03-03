@@ -14,7 +14,7 @@ class LiveLecturas extends Component
     use WithPagination;
 
 
-    public $perPage = 10;
+    public $perPage = 5;
     public $search = '';
 
     public $componentName = 'Lecturas', $selected_id;
@@ -170,7 +170,7 @@ class LiveLecturas extends Component
     public function clear()
     {
         $this->page = 1;
-        $this->perPage = 10;
+        $this->perPage = 5;
         $this->resetPage();
         $this->resetErrorBag();
         $this->selected_id = null;

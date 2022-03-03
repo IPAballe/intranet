@@ -357,12 +357,12 @@ return [
                 [
                     'text'    => ' EE | Consumo Diario',
                     'url'     => '/energia/consumos_dia',
-                    'icon'    => 'ml-3 fas fa-bolt fa-fw ',
+                    'icon'    => 'ml-3 fa fa-list-ol fa-fw ',
                 ],
                 [
                     'text'    => ' EE | Consumo Mensual',
                     'url'     => '/energia/consumos_mes',
-                    'icon'    => 'ml-3 fas fa-bolt fa-fw ',
+                    'icon'    => 'ml-3 fa fa-th-list fa-fw ',
                 ],
                 [
                     'text' => 'Agua | Planes',

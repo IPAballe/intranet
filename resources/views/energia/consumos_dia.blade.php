@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Consumo Electrico')
+@section('title','Consumo Electrico Diario')
 
 @section('content_header')
-    <h1> Consumo Electrico</h1>
+    <h1> Consumo Electrico Diario</h1>
 @stop
 
 @section('css')
@@ -15,7 +15,7 @@
 
 @section('content')
  <div class="content">
-     @livewire('live-consumos')
+     @livewire('live-consumos', ['periodo'=>'diario'])
  </div>
 @stop
 

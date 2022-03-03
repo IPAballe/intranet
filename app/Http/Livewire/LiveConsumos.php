@@ -8,6 +8,7 @@ use App\Models\Planes;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 
 class LiveConsumos extends Component
@@ -15,6 +16,8 @@ class LiveConsumos extends Component
     public $tipo = 1;  // ENERGIA ELECTRICA
     public $metros, $metro_id = 0;
     public $dias, $ano_mes, $Consumos, $consumo, $um, $ddm;
+
+    public $periodo, $anos, $ano;
 
     protected $intervalo, $temp;
 
@@ -45,6 +48,13 @@ class LiveConsumos extends Component
                               ->where('ano', Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01')->format('Y'))
                               ->where('mes', Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01')->format('m'))
                               ->first();
+
+        $this->anos = Lecturas::selectRaw(DB::raw("year(fecha) as ano"))
+                                 ->where('metro_id', $this->metro_id)
+                                 ->groupBy(DB::raw("year(fecha)"))
+                                 ->orderBy(DB::raw("year(fecha)"), 'desc')
+                                 ->get();
+
         $this->intervalo = CarbonPeriod::create(Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01'),
                                                 Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth());
         $this->ddm = Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth()->format('d');
@@ -56,24 +66,34 @@ class LiveConsumos extends Component
                                               ]);
     }
 
+    public function recordSiguiente($f, $metro_id)
+    {
+        return Lecturas::where('fecha', '>', $f)
+                       ->where('metro_id', $metro_id)
+                       ->orderBy('fecha', 'asc')
+                       ->first();
+    }
+
+    public function recordActAnterior($f, $metro_id)
+    {
+        return Lecturas::where('fecha', '<=', $f)
+                       ->where('metro_id', $metro_id)
+                       ->orderBy('fecha', 'desc')
+                       ->first();
+    }
+
     public function ConsumoDia($f, $metro_id)
     {
-        $recordSgt = Lecturas::where('fecha', '>', $f)
-                              ->where('metro_id', $metro_id)
-                              ->orderBy('fecha', 'asc')
-                              ->first();
-        $recordAnterior = Lecturas::where('fecha', '<=', $f)
-                                  ->where('metro_id', $metro_id)
-                                  ->orderBy('fecha', 'desc')
-                                  ->first();
+        $recordSiguente    = $this->recordSiguiente($f, $metro_id);
+        $recordActAnterior = $this->recordActAnterior($f, $metro_id);
         $this->consumo= null;
-        if (!is_null($recordSgt))
-        if (!is_null($recordAnterior))
+        if (!is_null($recordSiguente))
+        if (!is_null($recordActAnterior))
         {
-            $fechaSgt = Carbon::createFromFormat('Y-m-d', $recordSgt->fecha->format('Y-m-d'));
-            $lectuSgt = $recordSgt->lectura;
-            $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordAnterior->fecha->format('Y-m-d'));
-            $lectuAnterior = $recordAnterior->lectura;
+            $fechaSgt = Carbon::createFromFormat('Y-m-d', $recordSiguente->fecha->format('Y-m-d'));
+            $lectuSgt = $recordSiguente->lectura;
+            $fechaAnterior = Carbon::createFromFormat('Y-m-d', $recordActAnterior->fecha->format('Y-m-d'));
+            $lectuAnterior = $recordActAnterior->lectura;
             $this->consumo = ($lectuSgt - $lectuAnterior) /
                              ($fechaSgt->diffInDays($fechaAnterior));
         }
