@@ -4,16 +4,26 @@
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <div class="row bg-white px-2 py-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                    <div class="flex col-3">
-                        <label class="mt-3">Año</label>
-                        <select wire:model="ano" class="form-control mt-2 ml-3">
-                            @foreach ( $anos as $value)
-                                <option value="{{ $value->ano}}">{{ $value->ano }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="flex col-9">
-                        <label class="mt-3">Metrocontador</label>
+                    @if ($periodo ==='mensual')
+                        <div class="flex col-3">
+                            <label class="mt-3">Año</label>
+                            <select wire:model="ano" class="form-control mt-2 ml-3">
+                                @foreach ( $anos as $value)
+                                    <option value="{{ $value->ano}}">{{ $value->ano }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <div class="flex col-4">
+                            <label class="mt-3">Mes</label>
+                            <input type="month"
+                                   class="date form-control mt-2 ml-3"
+                                   wire:model="ano_mes"
+                            >
+                        </div>
+                    @endif
+                    <div class="flex col-8">
+                        <label class="mt-3 ml-3">Metrocontador</label>
                         <select wire:model="metro_id" class="form-control mt-2 ml-3">
                             <option value="0">Total</option>
                             @foreach ( $metros as $value)
