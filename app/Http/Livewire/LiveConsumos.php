@@ -24,6 +24,7 @@ class LiveConsumos extends Component
     public function mount()
     {
         $this->ano_mes  = Carbon::now()->Format('Y-m');
+        $this->ano      = Carbon::now()->Format('Y');
         $this->metros   = Metros::where('tipo_id', $this->tipo)
                           ->where('activo','1')
                           ->orderBy('metro_desc', 'asc')
@@ -33,11 +34,10 @@ class LiveConsumos extends Component
         {
             $this->metro_id = $t->id;
             $this->um = $this->metros->first()->tipo->um;
-
         }
 
         $this->planes = Planes::where('metro_id', $this->metro_id)
-                              ->where('ano', Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01')->format('Y'))
+                              ->where('ano',$this->ano)
                               ->where('mes', Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01')->format('m'))
                               ->first();
     }
@@ -49,15 +49,16 @@ class LiveConsumos extends Component
                               ->where('mes', Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01')->format('m'))
                               ->first();
 
-        $this->anos = Lecturas::selectRaw(DB::raw("year(fecha) as ano"))
+        $this->anos = Lecturas::select(DB::raw("year(fecha) as ano"))
                                  ->where('metro_id', $this->metro_id)
                                  ->groupBy(DB::raw("year(fecha)"))
                                  ->orderBy(DB::raw("year(fecha)"), 'desc')
                                  ->get();
 
-        $this->intervalo = CarbonPeriod::create(Carbon::createFromFormat('Y-m-d', $this->ano_mes.'-01'),
-                                                Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth());
-        $this->ddm = Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth()->format('d');
+        $this->intervalo = CarbonPeriod::create(Carbon::createFromFormat('Y-m', $this->ano_mes)->startOfMonth(),
+                                                Carbon::createFromFormat('Y-m', $this->ano_mes)->endOfMonth()
+                                               );
+        $this->ddm = Carbon::createFromFormat('Y-m', $this->ano_mes)->daysInMonth;
         $this->consumoPeriodo($this->intervalo, $this->metro_id);
 
         return view('livewire.live-consumos', [
@@ -100,11 +101,15 @@ class LiveConsumos extends Component
         return $this->consumo;
     }
 
-    public function consumoPeriodo($period, $metro_id)
+    public function consumoPeriodo($interv, $metro_id)
     {
         $this->Consumos = null;
-        foreach ($period as $d)
-            $this->Consumos[$d->format('Y-m-d')] =
-                   $this->ConsumoDia($d->format('Y-m-d'), $metro_id);
+        foreach ($interv as $d)
+            $this->Consumos[$d->format('Y-m-d')] = [
+                'consumo'=>$this->ConsumoDia($d->format('Y-m-d'), $metro_id),
+              //'plan'   => plan,
+            ]
+                   ;
+
     }
 }

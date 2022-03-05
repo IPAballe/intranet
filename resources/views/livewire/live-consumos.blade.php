@@ -59,7 +59,7 @@
                         @foreach ($Consumos as $key => $value)
                             @if (!is_null($value))
                                  @if (!is_null($planes))
-                                    @if ($value > $planes->plan / $ddm)
+                                    @if ($value['consumo'] > $planes->plan / $ddm)
                                         <?php $v = 'text-red-600 bg-gray-100';?>
                                     @else <?php $v= '';?>
                                     @endif
@@ -68,14 +68,14 @@
                                 ?>
                             @endif
                             <?php
-                                $consumoTotal = $consumoTotal +$value;
+                                $consumoTotal = $consumoTotal +$value['consumo'];
                             ?>
                             <tr class="hover:bg-gray-300 dark:hover:bg-gray-700 {{$v}}">
                                 <td class="px-6 py-2 text-center text-base  font-medium">
                                     {{ \Carbon\Carbon::createfromFormat('Y-m-d', $key)->format('d-m-Y')}}
                                 </td>
                                 <td class="px-6 py-2 text-right text-base font-bold">
-                                    {{number_format($value, 2)}}
+                                    {{number_format($value['consumo'], 2)}}
                                 </td>
 
                                 <td class="px-6 py-2 text-right text-base  font-medium">
@@ -90,7 +90,7 @@
 
                                 <td class="px-6 py-2 text-right  text-base font-medium">
                                     @if (!is_null($planes))
-                                        {{number_format(($value /($planes->plan / $ddm))*100, 2)}}
+                                        {{number_format(($value['consumo'] /($planes->plan / $ddm))*100, 2)}}
                                     @endif
                                 </td>
                             </tr>
