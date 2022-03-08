@@ -57,7 +57,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <?php $v= '';  $planTotal = 0; $consumoTotal = 0;?>
                         @foreach ($Consumos as $key => $value)
-                            @if (!is_null($value))
+                            @if (!is_null($value['consumo']))
                                  @if (!is_null($planes))
                                     @if ($value['consumo'] > $planes->plan / $ddm)
                                         <?php $v = 'text-red-600 bg-gray-100';?>
