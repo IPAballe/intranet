@@ -28,7 +28,7 @@
                     @error('fecha') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group col-6">
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Entre lectura" wire:model="lectura">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Entre lectura > [{{$ultimaLectura}}]" wire:model="lectura">
                     @error('lectura') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
             </div>

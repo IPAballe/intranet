@@ -20,19 +20,18 @@ class LiveLecturas extends Component
     public $componentName = 'Lecturas', $selected_id;
 
     public $lectura, $fecha, $cambiometro = false;
-    public $metro_id=0, $tipoSeleccionado='', $tipos_id;
+    public $metro_id=0, $tipoSeleccionado='', $tipos_id, $ultimaLectura;
 
     public $updateMode = true;
 
     public function mount()
     {
-        $this->fecha = Carbon::now()->format('Y-m-d');
+        // $this->fecha = Carbon::now()->format('Y-m-d');
         $this->tipoSeleccionado = (Tipos::orderBy('id', 'asc'))->first()->id;
         $t = (Metros::orderBy('metro_desc', 'asc')
                     ->where('activo', '1')
                     ->where('tipo_id',$this->tipoSeleccionado))->first();
         if (!is_null($t))  $this->metro_id = $t->id;
-
     }
 
     public function render()
@@ -53,6 +52,12 @@ class LiveLecturas extends Component
                                 ->where('lectura', 'like', "%$this->search%")
                                 ->orderBy('fecha','desc')
                                 ->paginate($this->perPage);
+
+        $l = Lecturas::where('metro_id', $this->metro_id)
+                     ->orderBy('fecha', 'desc')
+                     ->first();
+        $this->fecha = Carbon::parse(substr($l->fecha, 0, 11))->addDay()->format('Y-m-d');
+        $this->ultimaLectura = $l->lectura;
 
         return view('livewire.live-lecturas', [
                     'lecturas'=>$lecturas,
