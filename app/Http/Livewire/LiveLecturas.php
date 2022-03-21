@@ -26,7 +26,6 @@ class LiveLecturas extends Component
 
     public function mount()
     {
-        // $this->fecha = Carbon::now()->format('Y-m-d');
         $this->tipoSeleccionado = (Tipos::orderBy('id', 'asc'))->first()->id;
         $t = (Metros::orderBy('metro_desc', 'asc')
                     ->where('activo', '1')
@@ -158,6 +157,8 @@ class LiveLecturas extends Component
 
         $this->resetInputFields();
         $this->updateMode = false;
+        $this->PonUltimaLecturaFecha();
+        $this->emit('Pon-Foco-Input-Lectura');
     }
 
     public function delete($id)
@@ -183,13 +184,32 @@ class LiveLecturas extends Component
         $this->resetErrorBag();
     }
 
-    public function createModal()
+    public function PonUltimaLecturaFecha()
     {
-        $this->selected_id = null;
         $l = Lecturas::where('metro_id', $this->metro_id)
                      ->orderBy('fecha', 'desc')
                      ->first();
-        $this->fecha = Carbon::parse(substr($l->fecha, 0, 11))->addDay()->format('Y-m-d');
-        $this->ultimaLecturaMostrar = $l->lectura;
+        if (!is_null($l))
+        {
+            $this->fecha = Carbon::parse(substr($l->fecha, 0, 11))->addDay()->format('Y-m-d');
+            $this->ultimaLecturaMostrar = $l->lectura;
+        } else
+        {
+            $this->fecha = Carbon::now()->format('Y-m-d');
+            $this->ultimaLecturaMostrar = 0;
+        }
+    }
+
+    public function createModal()
+    {
+        $this->selected_id = null;
+        $this->PonUltimaLecturaFecha();
+    }
+
+    public function pasaFocoBoton()
+    {
+        dd('Hola');
+        //$this->emit('Pon-Foco-Boton');
+
     }
 }

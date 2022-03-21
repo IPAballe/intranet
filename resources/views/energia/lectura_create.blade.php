@@ -28,7 +28,10 @@
                     @error('fecha') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group col-6">
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Entre lectura > [{{$ultimaLecturaMostrar}}]" wire:model="lectura">
+                    <input  wire:model="lectura"
+                            wire:keydown.enter="pasaFocoBoton"
+                            class="form-control" type="text" id="lectura"
+                            placeholder="Entre lectura > [{{$ultimaLecturaMostrar}}]">
                     @error('lectura') <span class="text-danger error">{{ $message }}</span>@enderror
                 </div>
             </div>
@@ -42,6 +45,12 @@
           </div>
     </form>
 </div>
+
+<script>
+    window.onload = function() {
+        document.getElementById("input1").focus();
+    }
+</script>
 
 
 

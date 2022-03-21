@@ -20,5 +20,21 @@
 @stop
 
 @section('js')
+<script>
+    $(document).ready(function(){
+        $("#modal").on('shown.bs.modal', function(){
+            $(this).find('#lectura').focus();
+        });
+    });
+</script>
 
+<script>
+    window.livewire.on('Pon-Foco-Input-Lectura', function () {
+         $("#lectura").focus();
+     });
+     window.livewire.on('Pon-Foco-Boton', function () {
+         $("#guardar").focus();
+     });
+
+ </script>
 @endsection
