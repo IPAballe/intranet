@@ -28,13 +28,26 @@
     });
 </script>
 
+<script> {{-- Este Script elimina el envio del formulario por el ENTER --}}
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
+        if(e.keyCode == 13)
+        {
+            e.preventDefault();
+        }
+      }))
+    });
+</script>
+
 <script>
     window.livewire.on('Pon-Foco-Input-Lectura', function () {
          $("#lectura").focus();
      });
+ </script>
+
+ <script>
      window.livewire.on('Pon-Foco-Boton', function () {
          $("#guardar").focus();
      });
-
  </script>
 @endsection
