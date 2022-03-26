@@ -54,7 +54,7 @@ class LiveLecturas extends Component
 /*
 
 */
-        $this->PonUltimaLecturaFecha();
+
 
         return view('livewire.live-lecturas', [
                     'lecturas'=>$lecturas,
@@ -73,6 +73,13 @@ class LiveLecturas extends Component
             $this->metro_id = $this->metros->first()->id;
         else $this->metro_id =0;
         $this->tipos_id = $value;
+
+        $this->PonUltimaLecturaFecha();
+    }
+
+    public function updatedmetroId()
+    {
+        $this->PonUltimaLecturaFecha();
     }
 
     public function resetInputFields()
@@ -205,6 +212,7 @@ class LiveLecturas extends Component
     public function createModal()
     {
         $this->selected_id = null;
+        $this->PonUltimaLecturaFecha();
     }
 
     public function pasaFocoBoton()
