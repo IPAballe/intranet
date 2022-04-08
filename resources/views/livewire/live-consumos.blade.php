@@ -23,8 +23,8 @@
                         </div>
                     @endif
                     <div class="flex col-8">
-                        <label class="mt-3 ml-3">Metrocontador</label>
-                        <select wire:model="metro_id" class="form-control mt-2 ml-3">
+                        <label class="mt-3 ml-3 d-none d-sm-block">Metrocontador:</label>
+                        <select wire:model="metro_id" class="form-control mt-2 ml-5">
                             <option value="0">Total</option>
                             @foreach ( $metros as $value)
                                 <option value="{{ $value->id}}">{{ $value->metro_desc }}</option>
