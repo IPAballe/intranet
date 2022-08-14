@@ -20,7 +20,7 @@ class CreateMunicipiosTable extends Migration
             $table->unsignedBigInteger('prov_id');
             $table->foreign('prov_id')
                   ->references('id')
-                  ->on('Provincias')
+                  ->on('provincias')
                   ->onDelete('cascade');
             $table->timestamps();
         });

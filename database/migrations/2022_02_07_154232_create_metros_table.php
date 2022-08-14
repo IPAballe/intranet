@@ -26,13 +26,13 @@ class CreateMetrosTable extends Migration
             $table->unsignedBigInteger('entidad_id');
             $table->foreign('entidad_id')
                   ->references('id')
-                  ->on('Entidades')
+                  ->on('entidades')
                   ->onDelete('cascade');
 
             $table->unsignedBigInteger('tipo_id');
             $table->foreign('tipo_id')
                   ->references('id')
-                  ->on('Tipos')
+                  ->on('tipos')
                   ->onDelete('cascade');
 
             $table->timestamps();
