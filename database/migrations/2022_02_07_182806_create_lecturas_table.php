@@ -40,4 +40,4 @@ class CreateLecturasTable extends Migration
     }
 }
 
-// ISIDRO
+// ISIDRO.
