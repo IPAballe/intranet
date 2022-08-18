@@ -39,3 +39,4 @@ class CreateLecturasTable extends Migration
         Schema::dropIfExists('lecturas');
     }
 }
+// ISIDRO PEREZ
