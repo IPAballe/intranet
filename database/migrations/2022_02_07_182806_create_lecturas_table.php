@@ -22,7 +22,7 @@ class CreateLecturasTable extends Migration
             $table->unsignedBigInteger('metro_id');
             $table->foreign('metro_id')
                   ->references('id')
-                  ->on('Metros')
+                  ->on('metros')
                   ->onDelete('cascade');
 
             $table->timestamps();
